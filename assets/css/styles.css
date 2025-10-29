@@ -642,14 +642,19 @@ body.dark-theme {
   opacity: .1;
 }
 
-/*=============== SERVICES ===============*/
+/=============== SERVICES ===============/
 .services__container {
+  display: flex;
+  gap: 2.5rem;
   display: flex;
   gap: 2.5rem;
   justify-content: center;
   align-items: stretch;
   flex-wrap: wrap;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
+
 
 .services__card {
   position: relative;
@@ -658,7 +663,11 @@ body.dark-theme {
   text-align: center;
   padding: 3.5rem 1rem;
   border-radius: 2rem;
+  border-radius: 2rem;
   transition: background .4s; /* For dark mode animation */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -686,9 +695,15 @@ body.dark-theme {
   height: 100%; /* match parent height */
   border: 1.8px solid var(--text-color-light);
   border-radius: 2rem;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* match parent height */
+  border: 1.8px solid var(--text-color-light);
+  border-radius: 2rem;
   z-index: -1;
   transition: opacity .6s;
-  opacity: 0;
+  opacity: 0;
 }
 
 .services__card:hover i {
