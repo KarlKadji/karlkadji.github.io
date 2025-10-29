@@ -641,7 +641,7 @@ body.dark-theme {
   opacity: .1;
 }
 
-/=============== SERVICES ===============/
+/*=============== SERVICES ===============*/
 .services__container {
   display: flex;
   gap: 2.5rem;
