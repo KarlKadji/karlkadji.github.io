@@ -416,85 +416,176 @@ body.dark-theme {
 
 /*=============== SKILLS ===============*/
 .skills__container {
-  row-gap: 3.5rem;
+    /* This will arrange the DIRECT children (.skills__content) side-by-side */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Adjust minmax width as needed */
+    gap: 2.5rem; /* Space between the main skill content blocks */
+    justify-items: center; /* Center the entire skill content blocks within their grid areas */
 }
 
+/* This is the container for EACH individual skill category (e.g., "Data Analysis & Languages") */
+.skills__content {
+    background-color: var(--container-color); /* Assuming this is for the category card background */
+    padding: 2rem; /* Add padding around the content of each category card */
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 12px hsla(207, 24%, 35%, .1);
+    width: 100%; /* Ensure it takes full width of its grid column */
+    max-width: 400px; /* Optional: Constrain max width for better appearance on very wide screens */
+    display: flex; /* Make it a flex container to stack title and skills__info */
+    flex-direction: column; /* Stack children vertically */
+    align-items: center; /* Center the title and the skills__info horizontally */
+}
+
+
 .skills__title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  column-gap: .5rem;
-  font-size: var(--small-font-size);
-  font-weight: var(--font-semi-bold);
-  margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: center; /* Center title content (icon and text) */
+    align-items: center;
+    column-gap: .5rem;
+    font-size: var(--h3-font-size); /* Use h3 size for category titles */
+    font-weight: var(--font-semi-bold);
+    margin-bottom: 2rem; /* More space below category title */
+    text-align: center; /* Ensure text is centered */
+    color: var(--title-color);
+    width: 100%; /* Ensure title spans full width */
 }
 
 .skills__title i {
-  font-size: 1rem;
-  font-weight: initial;
+    font-size: 1.25rem; /* Slightly larger icon */
+    font-weight: initial;
 }
 
-.skills__info, 
-.skills__data, 
-.skills__blob {
-  display: grid;
-}
-
+/* This is the container for the individual skill items (SQL, Excel, Python, etc.) *within* each category */
 .skills__info {
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem 2rem;
+    display: grid;
+    /* Arranges individual skills (skills__data) into a grid within their category.
+       Using repeat(2, 1fr) for two columns, adjust if you prefer 3 or 1. */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 1.5rem 1rem; /* Row gap and column gap */
+    width: 100%; /* Ensure it takes full width within the skills__content */
+    justify-items: center; /* Center individual skill blobs within their grid cells */
 }
 
 .skills__data {
-  justify-content: center;
-  text-align: center;
+    display: flex; /* Make skills__data a flex container */
+    flex-direction: column; /* Stack blob and name/subtitle vertically */
+    align-items: center; /* Center items horizontally within skills__data */
+    text-align: center;
 }
 
 .skills__blob {
-  width: 80px;
-  height: 100px;
-  background-color: var(--container-color);
-  border-radius: 3rem;
-  place-items: center;
-  margin-bottom: 1rem;
-  transition: background .4s; /* for dark mode animation */
+    width: 80px; /* Consistent size */
+    height: 80px; /* Consistent size */
+    background-color: var(--body-color); /* Changed to body-color for contrast with container */
+    border-radius: 50%; /* Make it perfectly round */
+    display: grid;
+    place-items: center; /* Center image inside the blob */
+    margin-bottom: .75rem; /* Space below blob */
+    transition: background .4s;
+    box-shadow: 0 2px 8px hsla(207, 24%, 35%, .1); /* Optional: add subtle shadow to blob */
 }
 
 .skills__blob img {
-  width: 40px;
+    width: 40px; /* Size of the icon inside the blob */
+    height: 40px; /* Ensure aspect ratio */
+    object-fit: contain; /* Prevents distortion */
 }
 
 .skills__name {
-  font-size: var(--small-font-size);
-  margin-bottom: .25rem;
+    font-size: var(--small-font-size);
+    margin-bottom: .25rem;
+    font-weight: var(--font-medium);
+    color: var(--title-color);
 }
 
 .skills__subtitle {
-  font-size: var(--tiny-font-size);
-  color: var(--text-color-light);
+    font-size: var(--tiny-font-size);
+    color: var(--text-color-light);
 }
+
+/* You had these for list-based skills, ensure they are used if you have a different display for some skills */
+.skills__category-content { /* Assuming this might be used for list-style skills like the BI tools */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%; /* Ensure it fits inside skills__content */
+}
+.skill-item { /* Styles for list items if you choose to use them */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--text-color-light);
+    opacity: 1; 
+    transition: opacity 0.3s ease;
+}
+.skill-item:last-child {
+    border-bottom: none;
+}
+.skill-item:hover {
+    opacity: 0.8; 
+}
+.skill-name {
+    font-size: var(--normal-font-size);
+    color: var(--title-color);
+    font-weight: var(--font-medium);
+}
+.skill-level {
+    font-size: var(--small-font-size);
+    color: var(--text-color-light);
+    font-weight: var(--font-medium);
+    background-color: var(--body-color);
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+}
+
 
 /* Animation skills */
 .skills__blob:hover img {
-  animation: bounce-skills .6s;
+    animation: bounce-skills .6s;
 }
 
 @keyframes bounce-skills {
-  0% {
-    transform: translate(0);
-  }
-  20% {
-    transform: translateY(-6px);
-  }
-  40% {
-    transform: translate(0);
-  }
-  60% {
-    transform: translateY(-3px);
-  }
-  80% {
-    transform: translate(0);
-  }
+    0% {
+        transform: translate(0);
+    }
+    20% {
+        transform: translateY(-6px);
+    }
+    40% {
+        transform: translate(0);
+    }
+    60% {
+        transform: translateY(-3px);
+    }
+    80% {
+        transform: translate(0);
+    }
+}
+
+/* --- Responsive Adjustments --- */
+@media screen and (max-width: 768px) {
+    .skills__container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Allow narrower columns on small screens */
+    }
+    .skills__content {
+        padding: 1.5rem; /* Less padding on smaller screens */
+    }
+    .skills__info {
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Allow individual skills to wrap more */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .skills__container {
+        grid-template-columns: 1fr; /* Stack categories on very small screens */
+    }
+    .skills__info {
+        grid-template-columns: repeat(2, 1fr); /* Keep individual skills in two columns if space allows */
+    }
+    .skills__title {
+        font-size: var(--normal-font-size);
+    }
 }
 
 /*=============== QUALIFICATION ===============*/
@@ -553,19 +644,24 @@ body.dark-theme {
 
 /*=============== SERVICES ===============*/
 .services__container {
-  row-gap: 2.5rem;
+  display: flex;
+  gap: 2.5rem;
   justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
 }
 
 .services__card {
   position: relative;
-  width: 230px;
-  height: 350px;
+  width: 228px;
   background-color: var(--container-color);
   text-align: center;
   padding: 3.5rem 1rem;
-  border-radius: 7.25rem;
+  border-radius: 2rem;
   transition: background .4s; /* For dark mode animation */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .services__card i {
@@ -583,14 +679,13 @@ body.dark-theme {
 }
 
 .services__border {
-  width: 248px;
-  height: 342px;
-  border: 1.8px solid var(--text-color-light);
-  border-radius: 7.75rem;
   position: absolute;
-  inset: 0;
-  left: -10px;
-  margin: auto;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* match parent height */
+  border: 1.8px solid var(--text-color-light);
+  border-radius: 2rem;
   z-index: -1;
   transition: opacity .6s;
   opacity: 0;
@@ -609,26 +704,61 @@ body.dark-theme {
   overflow: initial;
 }
 
+.swiper-wrapper {
+  align-items: stretch; /* Makes all slides the same height */
+}
+
 .projects__content {
-  display: grid;
-  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--container-color);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 480px; /* Consistent minimum height */
+}
+
+.projects__content:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px hsla(207, 24%, 35%, 0.15);
 }
 
 .projects__img {
-  width: 250px;
+  width: 100%;
+  height: 160px; /* Fixed image height */
+  object-fit: cover; /* Maintains aspect ratio */
   border-radius: .75rem;
   margin-bottom: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.projects__content:hover .projects__img {
+  transform: scale(1.02);
 }
 
 .projects__subtitle {
   font-size: var(--small-font-size);
   color: var(--text-color-light);
+  font-weight: var(--font-medium);
+  margin-bottom: 0.5rem;
 }
 
 .projects__title {
   font-size: var(--h2-font-size);
-  margin-bottom: 1.25rem;
-  margin: .5rem 0 1.25rem;
+  margin: .5rem 0 1rem;
+  color: var(--title-color);
+  line-height: 1.3;
+  min-height: 3.5em; /* Consistent title height */
+}
+
+.projects__description {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1; /* Takes up remaining space */
+  min-height: 4.5em; /* Minimum description height */
 }
 
 .projects__button {
@@ -637,6 +767,18 @@ body.dark-theme {
   column-gap: .5rem;
   color: var(--title-color);
   font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  padding: 0.5rem 1rem;
+  background-color: var(--body-color);
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  margin-top: auto; /* Pushes button to bottom */
+}
+
+.projects__button:hover {
+  background-color: var(--first-color);
+  color: white;
+  transform: translateX(0.25rem);
 }
 
 .projects__button i {
@@ -656,38 +798,95 @@ body.dark-theme {
 
 .projects__container .swiper-button-prev,
 .projects__container .swiper-button-next {
-  width: initial;
-  height: initial;
+  width: 40px;
+  height: 40px;
+  background: var(--container-color);
+  border-radius: 50%;
+  box-shadow: 0 4px 12px hsla(207, 24%, 35%, 0.1);
   margin: initial;
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   color: var(--title-color);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.projects__container .swiper-button-prev:hover,
+.projects__container .swiper-button-next:hover {
+  background: var(--first-color);
+  color: white;
+  transform: scale(1.1);
 }
 
 .projects__container .swiper-button-prev {
-  left: -1rem;
-  top: 4.5rem;
+  left: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .projects__container .swiper-button-next {
-  right: -1rem;
-  top: 4.5rem;
+  right: -0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .projects__container .swiper-slide {
   margin-bottom: 4.5rem;
+  padding: 0.5rem;
+  height: auto;
 }
 
 .projects__container .swiper-pagination-bullets {
-  bottom: 0;
+  bottom: -1rem;
 }
 
 .projects__container .swiper-pagination-bullet {
   background-color: var(--text-color-light);
-  opacity: initial;
+  opacity: 0.6;
+  width: 8px;
+  height: 8px;
+  transition: all 0.3s ease;
 }
 
 .projects__container .swiper-pagination-bullet-active {
-  background-color: var(--title-color);
+  background-color: var(--first-color);
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 340px) {
+  .projects__content {
+    padding: 1rem;
+    min-height: 420px;
+  }
+  
+  .projects__img {
+    height: 140px;
+  }
+  
+  .projects__container .swiper-button-prev,
+  .projects__container .swiper-button-next {
+    width: 35px;
+    height: 35px;
+    font-size: 1.25rem;
+  }
+}
+
+@media screen and (min-width: 1023px) {
+  .projects__container .swiper-button-prev {
+    left: -1rem;
+  }
+  
+  .projects__container .swiper-button-next {
+    right: -1rem;
+  }
+  
+  .projects__content {
+    padding: 2rem;
+    min-height: 500px;
+  }
 }
 
 /*=============== TESTIMONIAL ===============*/
@@ -1009,12 +1208,8 @@ body.dark-theme {
   }
 
   .skills__info {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .projects__img {
-    width: 200px;
-    justify-self: center;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
 
@@ -1030,6 +1225,10 @@ body.dark-theme {
 
   .skills__container {
     justify-content: center;
+  }
+
+  .skills__info {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .projects__container,
@@ -1154,6 +1353,11 @@ body.dark-theme {
     font-size: 2.25rem;
   }
 
+  .skills__info {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+  }
+
   .scrollup {
     right: 3rem;
   }
@@ -1264,17 +1468,17 @@ body.dark-theme {
   }
   .services__card {
     width: 245px;
-    height: 345px;
-    border-radius: 7.6rem;
+    height: auto;
+    border-radius: 2rem;
     padding: 3.5rem 1.5rem;
   }
   .services__card i {
     font-size: 2.5rem;
   }
   .services__border {
-    width: 265px;
-    height: 365px;
-    border-radius: 8.25rem;
+    width: 100%;
+    height: 100%;
+    border-radius: 2rem;
   }
 
   .projects__container {
